@@ -49,6 +49,11 @@ test('PDF export derives the output basename from an explicit input', () => {
   assert.equal(parseResumePdfArgs(['user files/resume.htm']).outPath, resolve('resume.pdf'));
 });
 
+test('PDF export keeps the .pdf suffix when the input repeats or omits the extension', () => {
+  assert.equal(parseResumePdfArgs(['user files/resume.html.html']).outPath, resolve('resume.html.pdf'));
+  assert.equal(parseResumePdfArgs(['user files/resume']).outPath, resolve('resume.pdf'));
+});
+
 test('PDF export rejects the same input and output path', () => {
   assert.throws(
     () => parseResumePdfArgs(['resume.html', '--out', 'resume.html']),
